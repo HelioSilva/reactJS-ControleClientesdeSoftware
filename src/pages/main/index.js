@@ -4,13 +4,10 @@ import Alerts from '../../componentes/utils/alerts/index';
 import Nav from '../../componentes/Nav/index';
 
 import {Link} from 'react-router-dom';
-import "./style.css";
+import {AreaItens,Item,HeaderItem,MiddlewareItem} from  "./styled";
+import {connect} from 'react-redux' ;
 
-export default class Main extends Component {
-
-    state = {
-        clientes:[],
-    }
+class Main extends Component {
 
     componentDidMount(){
             this.load();
@@ -18,31 +15,48 @@ export default class Main extends Component {
 
     load = async () =>{
         const response = await api.get('/clients');
-        this.setState({clientes:response.data.clientes});
+        const clientes = response.data.clientes;
+        this.props.dispatch({
+            type:'GETCLIENTES',
+            clientes
+            
+        });
     };
 
 
     render(){
 
-        const {clientes} = this.state ;
+        const {clientes} = this.props.dados.ReducerPrincipal ;
 
         return(
+        <div>
+            <Nav />
            
-            <div className="cliente-list">
-                <Nav />
+            <AreaItens>
                 {clientes.map(cliente => (
-                    <article key={cliente._id} className={cliente.status === "1" ? "ativo" : "desativo" }>
-                        <div className="header-itemList">
+                    
+                    <Item key={cliente._id}>
+                        <HeaderItem>
                             <strong>{cliente.razao}</strong>
                             <div><Alerts qtd={cliente.caixas.length}/></div>
+                        </HeaderItem>
+                        <MiddlewareItem>
+                            <p>Fantasia: {cliente.fantasia}</p>
+                            <p>Cpnj: {cliente.cnpj}</p>
+                        </MiddlewareItem>
+                        <div>
+                                <Link to={`/cliente/${cliente._id}`}>Acessar Cliente</Link>
                         </div>
-                        
-                        <p>{cliente.fantasia} - cnpj: {cliente.cnpj}</p>
-                        <Link to={`/cliente/${cliente._id}`}>Acessar Cliente</Link>
-                    </article>
-                    
-                ))}
-            </div>
+                    </Item>
+                    ))
+                }
+            </AreaItens>
+        </div>
+            
         );
     }
 }
+
+export default connect(state => ({
+    dados:state   
+}))(Main);

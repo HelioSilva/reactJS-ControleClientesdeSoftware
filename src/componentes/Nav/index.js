@@ -1,14 +1,17 @@
-import React from 'react' ;
+import React,{Component} from 'react' ;
 import {Link} from 'react-router-dom';
 
-import "./styles.css";
+import {New,Area} from './styled';
 
 function Nav(){
 
     return(
-        <div className="styleNav">
-            <Link to="/createCliente">Novo</Link>
-        </div>        
+        <Area> 
+              <Link to={`/createCliente`}>           
+                    <New>+</New>
+              </Link>          
+                
+        </Area>        
     )
 
 }

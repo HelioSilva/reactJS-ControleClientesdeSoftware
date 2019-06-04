@@ -1,12 +1,12 @@
 import React from 'react' ;
-import "./styles.css";
+import {BackgroundAlerta} from "./styled";
 
 function Alerts(props){
     return(
-        <alert>
+        <BackgroundAlerta>
             <h3>Caixas</h3>
             <h3>{props.qtd}</h3>
-        </alert>
+        </BackgroundAlerta>
     );
 }
 

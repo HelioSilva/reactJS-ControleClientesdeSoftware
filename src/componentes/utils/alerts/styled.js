@@ -1,4 +1,6 @@
-alert{
+import styled,{keyframes} from 'styled-components';
+
+export const BackgroundAlerta = styled.div`
     display: flex;
     justify-content: space-between;
     background: #d34;
@@ -6,7 +8,8 @@ alert{
     padding: 5px;
     border-radius: 5px;
     width: 70px;
-}
-alert h3{
-    font-size: 14px;
-}
+
+    h3{
+        font-size: 14px;
+    }
+`;
